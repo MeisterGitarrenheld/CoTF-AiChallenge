@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Clash-Of-Table-Forge Coding Challenge</title>
+        <link rel="stylesheet" href="ClashStyle.css">
+    </head>
+    <body>
+        <h1>Clash of Table-Forge</h1>
+        <video width="320" height="240" autoplay>
+            <source src="AdditionalFiles/ClashSchnell.mp4" type="video/mp4">
+            <img src="AdditionalFiles/Board.png">
+        </video>
+        <nav class="borderstyle">
+            <ul class="empty">
+                <li>
+                    <a href="#intro">Intro</a>
+                    <ul style="margin-left: 2em;">
+                        <li><a href="#anleitung">SpielAnleitung</a></li>
+                        <li><a href="#steuerung">Steuerung</a></li>
+                        <li><a href="#json">Json</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#ablauf">Ablauf</a>
+                    <ul style="margin-left: 2em;">
+                        <li><a href="#konstruieren">Konstruieren einer KI</a></li>
+                        <li><a href="#anforderungen">Anforderungen an euer Programm</a></li>
+                        <li><a href="#testen">Testen</a></li>
+                        <li><a href="#starten">Starten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <h2 id="intro" >Intro</h2>
+        <p>
+            Willkommen bei der coolsten Challenge überhaupt!<br>
+            Führt eure Truppen an und besiegt die Truppen eures Gegners. Zwei mächtige Armeen stehen sich gegenüber. Sie müssen den Gegner durch strategisches Handeln   schnell überrumpeln und schlagen. Eure Aufgabe ist es, eure Einheiten mit einem von euch entwickelten Algorithmus zu steuern und den Gegner zu besiegen.
+        </p>
+        <h3 id="anleitung">Spielanleitung:</h3>
+            <img class="description" src="AdditionalFiles/BoardMove.png">
+        <p>Das Spiel besteht aus einem Spielbrett <em>(Table)</em>
+            , auf dem die Einheiten <em>(Units)</em> gegeneinander kämpfen.<br>
+            Auf dem Brett gibt es Wände <em>(Walls)</em>, die nicht überschritten werden können.
+         </p>
+        <h3 id="steuerung">Steuerung:</h3>
+        <p>
+            Das Spiel liest das Brett aus einer Json Datei <em>(ClashForgeTable.json)</em> aus.<br>
+            Die Einheiten werden mit Aktionen bewegt, die aus Json Dateien gelesen werden.<br>
+            Die Einheiten können sich <b>bewegen</b>, oder <b>angreifen</b>.
+        </p>
+        <h3 id="json">Json:</h3>
+        <b>Table:</b>
+        <p><b>
+            {<br>
+                "width": 10,<br>
+                "height": 10,<br>
+                "players": [{}]<br>
+                "walls": [{}]<br>
+            }
+            </b><br>
+            Breite, Höhe und ein Array für zwei Spieler.
+        </p>
+        <b>Spieler Objekt:</b>
+        <p><b>{<br>
+            "tag": 1,<br>
+            "units": [{}]<br>
+            }<br>
+            </b>
+            Tag des Spielers und ein Array für Einheiten.
+        </p>
+        <b>Einheiten(<em>Unit</em>) Objekt:</b>
+        <p><b>
+            {<br>
+                "tag": 11,<br>
+                "live": 100,<br>
+                "xpos": 1,<br>
+                "ypos": 2<br>
+            }<br></b>
+            Jede Einheit hat einen Tag, das aktuelle Leben und die Position. Der Tag beginnt mit dem Spieler-Tag.  
+        </p>
+        <b>Wand Objekt:</b>
+        <p><b>
+            {<br>
+                "xpos": 5,<br>
+                "ypos": 6<br>
+            }<br></b>
+            Ein Wandobjekt hat eine Position.
+        </p>
+        
+        <img class="description" src="AdditionalFiles/BoardAttack.png">
+        <b>Actions:</b>
+        <p>
+            <b>
+            "actions": [<br>
+                {<br>
+                    "causeunit": 11,<br>
+                    "impactunit": 0,<br>
+                    "actiontype": "move",<br>
+                    "par1": "-1",<br>
+                    "par2": "0",<br>
+                    "par3": ""<br>
+                },<br>
+                {<br>
+                    "causeunit": 24,<br>
+                    "impactunit": 13,<br>
+                    "actiontype": "attack",<br>
+                    "par1": "",<br>
+                    "par2": "",<br>
+                    "par3": ""<br>
+                }]<br>
+            </b>
+            Das Actions Array besteht aus Bewegungs- <em>"move"</em> oder Angriffszügen <em>"attack"</em>.<br>
+            Jeder Zug hat eine ausführende Einheit <em>("causeunit")</em> und eine getroffene Einheit <em>("impactunit")</em>. Zu jedem Zug gibt es zusätzliche Parameter, die gegeben werden können <em>("par1","par2" und "par3")</em>.<br>
+            Es können beliebig viele Züge in das Array geschrieben werden. Allerdings kann jede Einheit nur einen Zug pro Runde ausführen.
+        </p>
+        <h4>Move:</h4>
+        <p>
+            Die <em>"causeunit"</em> wird mit dem Vector, der sich aus <em>"par1"</em> und <em>"par2"</em> ergibt, <b>verschoben</b>. Wenn die Unit auf <em>x=4, y=6</em> steht und einen <em>"move"</em> Zug mit den Parametern <em>par1=-1, par2=1</em>  bekommt, dann zieht sie auf <em>x=3, y=7</em>. Die Figur kann maximal <b>ein</b> Feld horizontal, vertikal oder diagonal laufen.
+        </p>
+        <h4>Attack</h4>
+        <p>
+            Die <em>"causeunit"</em> führt einen Angriff auf <em>"impactunit"</em> aus. Eine Einheit kann nur angegriffen werden, wenn sie in Schrittweite ist.<br>
+            Also wenn die andere Figur ein Feld horizontal, vertikal oder diagonal entfernt ist.
+        </p>
+        <h2 id="ablauf">Ablauf</h2>
+        <h3 id="konstruieren">Konstruieren einer KI</h3>
+        <p>
+            Eure Aufgabe ist es eine KI zu erzeugen, die eine Liste an <em>Actions</em> erstellt, die dann ausgeführt werden. Für <b>jeden</b> Zug wird eine neue <em>Actions</em> Liste erwartet.<br>
+            Ihr <b>liest</b> die <em>Table</em> Datei und <b>gebt</b> eine <em>Actions</em> Datei zurück.
+        </p>
+        <p>
+            Die Visualisierung liest aus Json ein und gibt in Json aus. Daher sollte euer Programm auf Windows per Kommandozeile ausführbar sein.  Oder es ist ein Script auf einem Server, welches die <em>Actions</em> Json Datei per http request liefert.<br>
+        </p>
+        <h3>Executable:</h3>
+        <p>
+            Euer Programm wird mit <b>einem</b> Parameter, der <b>Spielernummer</b> aufgerufen.<br>
+            Ihr lest aus dem Ordner <b>"Json/JsonOut/"</b> die Datei <b>"ClashForgeTable.json"</b>, um das aktuelle Spielbrett zu erhalten.<br>
+            Euer Programm muss dann eine Datei mit dem Namen: <b>"ClashForgeAction[Eure Spielernummer].json"</b> in den Ordner:<b>"Json/JsonIn/"</b> schreiben. <em>(bsp. Für Spieler 1 :"ClashForgeAction1.json")</em>
+        </p>
+        <h3>(Noch nicht drinnen - Http:</h3>
+        <p>
+            Es wird ein http get request gemacht, mit der Spielernummer und der Table Json als Parameter.<br>
+            Das Programm wartet auf eine Antwort mit der Actions Liste als Json.)
+        </p>
+        <h3 id="anforderungen">
+            Anforderungen an euer Programm:
+        </h3>
+        <ul style="margin-left: 2em; font-size: 1.2em;">
+            <li>
+                Ihr bekommt eure Spielernummer 
+            </li>
+            <li>
+                Liest das Spielbrett aus der Datei
+            </li>
+            <li>
+                Erstellt eine Action Liste
+            </li>
+            <li>
+                Speichert die Action Liste in einer Datei mit eurer Spielernummer
+            </li>
+            <li>
+                Beendet euer Programm
+            </li>
+        </ul> 
+        <h3 style="margin-top: 2em;" id="testen">Testen</h3>
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        Zum Testen muss euer Programm in dem Ordner <b>Clash of Table-Forge_Data</b> sein:
+                    </p>
+                </td>
+                <td>
+                    <img style="width: 100%; max-width: 700px;" src="AdditionalFiles/TestErkl1.png">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>
+                        Wenn euer Programm im Ordner vorhanden ist<em>(wie <b>ClashOfTableForgeAI.exe</b>)</em>, muss die ausführbare Datei noch im Projekt markiert sein.<br>
+                        Dazu gibt es ein <b>Setup</b>-File im <em>Json</em> Ordner.
+                    </p>
+                </td>
+                <td>
+                    <img style="width: 100%; max-width: 700px;" src="AdditionalFiles/TestErkl2.png">
+                </td>
+            </tr>
+        </table>
+                    <p>
+                        Im <em>Json</em> Ordner ist der <em>JsonSetup</em> Ordner, der ein Setup Textfile beinhaltet.
+                    </p>
+        <table style="margin-bottom: 2em;">
+            <tr>
+                <td>
+                    <img style="margin: 0px; width: 100%; max-width: 700px;" src="AdditionalFiles/TestErkl3.png">
+                </td>
+                <td>
+                    <img style="margin: 0px; width: 100%; max-width: 700px;" src="AdditionalFiles/TestErkl4.png">
+                </td>
+            </tr>
+        </table>
+        
+        <table>
+            <tr style="height: 20em;">
+                <td>
+                    Fügt den Namen der Datei<em>(mit Dateiendung)</em> im Setup-File als Player ein.
+                    <br>
+                    <br>
+                </td>
+                <td>
+                    <img style="margin: 0px; width: 100%; max-width: 700px;" src="AdditionalFiles/TestErkl5.png">
+                </td>
+            </tr>
+        </table>
+        <p>
+            Es kann auch ein Gegner gewählt werden, der nur Zufallszüge erstellt, indem das Wort <b>Random</b> als Spieler gewählt wird.
+        </p>
+        <h3 id="starten">Starten:</h3>
+        <img class="description" src="AdditionalFiles/Board.png">
+        <p style="margin-top: 2em;">
+            Nun kann das Spiel gestartet werden.<br>
+            Mit <b>Enter</b> werden die Spieler und das Spielbrett geladen und mit <b>Escape</b> wird das Programm beendet.
+        </p>
+        <p>
+            Seht zu, wie die Computer sich bewegen und wie das Spiel verläuft.<br>
+            Wenn ein Spieler besiegt ist, oder ein Programm keinen Zug berechnet, ist das Spiel vorbei.
+        </p>
+        <h1 style="margin-top: 3em;">Viel Spaß!</h1>
+        <footer>Clash of Table-Forge Anleitung</footer>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+{
+    "actions": [
+        {
+            "causeunit": 11,
+            "impactunit": 0,
+            "actiontype": "move",
+            "par1": "0",
+            "par2": "0",
+            "par3": ""
+        },
+        {
+            "causeunit": 12,
+            "impactunit": 0,
+            "actiontype": "move",
+            "par1": "-1",
+            "par2": "0",
+            "par3": ""
+        },
+        {
+            "causeunit": 13,
+            "impactunit": 23,
+            "actiontype": "attack",
+            "par1": "",
+            "par2": "",
+            "par3": ""
+        },
+        {
+            "causeunit": 15,
+            "impactunit": 0,
+            "actiontype": "move",
+            "par1": "1",
+            "par2": "0",
+            "par3": ""
+        }
+    ]
+}

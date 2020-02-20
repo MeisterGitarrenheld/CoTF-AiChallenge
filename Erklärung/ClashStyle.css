@@ -1,0 +1,77 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+html {
+    background-color: aliceblue;
+    font-family: monospace;
+    margin: 0 15% 0 15%;
+}
+h1 {
+    text-align: center;
+    padding: 10px 0 10px 0;
+}
+h2 {
+    border-bottom: solid;
+    margin-bottom: 1em;
+}
+
+p {
+    margin-bottom: 2em;
+    font-size: 1.1em;
+}
+video {
+    width: 50%; 
+    margin-left: 25%;
+}
+img {
+    width: 50%;
+    max-width: 30em;
+    margin-left: 25%;
+}
+img.description {
+    margin: 0px;
+    float: right;
+}
+footer {
+    text-align: right;
+    font-size: 10px;
+}
+nav {
+    font-size: 1.5em;
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
+.borderstyle {
+        border: solid;
+    border-top: none;
+    border-left-color: darkgray;
+    border-radius: 5px;
+}
+
+li{
+    list-style: none;
+}
+
+li:before {
+    content: "\2192";
+}
+
+ul.empty li{    
+    list-style: none;
+}
+
+ul.empty li:before{    
+    content: "";
+}
+
+ul.empty li ul li {
+    list-style: disc;
+    color: darkgoldenrod;
+}
+
+nav a {
+    color: darkred;
+    text-decoration: none;
+}

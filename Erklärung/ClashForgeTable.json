@@ -1,0 +1,98 @@
+{
+    "width": 10,
+    "height": 10,
+    "players": [
+        {
+            "tag": 1,
+            "units": [
+                {
+                    "tag": 11,
+                    "live": 100,
+                    "xpos": 3,
+                    "ypos": 0
+                },
+                {
+                    "tag": 12,
+                    "live": 100,
+                    "xpos": 4,
+                    "ypos": 0
+                },
+                {
+                    "tag": 13,
+                    "live": 100,
+                    "xpos": 5,
+                    "ypos": 0
+                },
+                {
+                    "tag": 14,
+                    "live": 100,
+                    "xpos": 6,
+                    "ypos": 0
+                },
+                {
+                    "tag": 15,
+                    "live": 100,
+                    "xpos": 7,
+                    "ypos": 0
+                }
+            ]
+        },
+        {
+            "tag": 2,
+            "units": [
+                {
+                    "tag": 21,
+                    "live": 100,
+                    "xpos": 3,
+                    "ypos": 9
+                },
+                {
+                    "tag": 22,
+                    "live": 100,
+                    "xpos": 4,
+                    "ypos": 9
+                },
+                {
+                    "tag": 23,
+                    "live": 100,
+                    "xpos": 5,
+                    "ypos": 9
+                },
+                {
+                    "tag": 24,
+                    "live": 100,
+                    "xpos": 6,
+                    "ypos": 9
+                },
+                {
+                    "tag": 25,
+                    "live": 100,
+                    "xpos": 7,
+                    "ypos": 9
+                }
+            ]
+        }
+    ],
+    "walls":[
+        {
+            "xpos": 3,
+            "ypos": 5
+        },
+        {
+            "xpos": 4,
+            "ypos": 5
+        },
+        {
+            "xpos": 5,
+            "ypos": 5
+        },
+        {
+            "xpos": 6,
+            "ypos": 5
+        },
+        {
+            "xpos": 7,
+            "ypos": 5
+        }
+    ]
+}
