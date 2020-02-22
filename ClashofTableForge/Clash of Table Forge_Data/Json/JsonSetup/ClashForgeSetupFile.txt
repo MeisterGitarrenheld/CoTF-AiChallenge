@@ -1,0 +1,9 @@
+# SetupFile:
+# Enter your Programm name and executable type (.exe .jar, etc) oder wähle den Computergegner aus (das Programm kann von beiden Spielern ausgeführt werden)
+#
+# Player 1:
+ClashOfTableForgeAI.exe
+#
+# Falls zufällige Züge erstellt werden sollen, schreib random 
+# Player 2:
+Random

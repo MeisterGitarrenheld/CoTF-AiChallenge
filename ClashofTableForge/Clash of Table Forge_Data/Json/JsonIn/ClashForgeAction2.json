@@ -1,0 +1,12 @@
+{
+    "actions": [
+        {
+            "causeunit": 21,
+            "impactunit": 0,
+            "actiontype": "move",
+            "par1": "0",
+            "par2": "0",
+            "par3": ""
+        }
+    ]
+}

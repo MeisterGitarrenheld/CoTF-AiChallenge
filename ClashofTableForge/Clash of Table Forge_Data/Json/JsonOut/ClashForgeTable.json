@@ -1,0 +1,31 @@
+{
+    "width": 10,
+    "height": 10,
+    "players": [
+        {
+            "tag": 1,
+            "units": [
+                {
+                    "tag": 12,
+                    "live": 30,
+                    "strength": 50,
+                    "xpos": 7,
+                    "ypos": 6
+                }
+            ]
+        },
+        {
+            "tag": 2,
+            "units": [
+                {
+                    "tag": 21,
+                    "live": 30,
+                    "strength": 50,
+                    "xpos": 5,
+                    "ypos": 4
+                }
+            ]
+        }
+    ],
+    "walls": []
+}
